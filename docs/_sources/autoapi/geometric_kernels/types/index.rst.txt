@@ -1,0 +1,11 @@
+:py:mod:`geometric_kernels.types`
+=================================
+
+.. py:module:: geometric_kernels.types
+
+.. autoapi-nested-parse::
+
+   Types used across the package.
+
+
+

@@ -1,0 +1,75 @@
+:orphan:
+
+:py:mod:`geometric_kernels.frontends.jax.gpjax`
+===============================================
+
+.. py:module:: geometric_kernels.frontends.jax.gpjax
+
+
+Module Contents
+---------------
+
+.. py:class:: GPJaxGeometricKernel(base_kernel, compute_engine=_GeometricComputation, active_dims = None, name = 'Geometric Kernel')
+
+   Bases: :py:obj:`gpjax.kernels.AbstractKernel`
+
+   A class for wrapping a geometric kernel in a GPJax-compatible format.
+
+   Initialise the kernel.
+
+   Args:
+       base_kernel (BaseGeometricKernel): The geometric kernel to wrap.
+       compute_engine (_GeometricComputation, optional): The compute engine that assigns the logic used to compute covariance matrices. Defaults to _GeometricComputation.
+       active_dims (tp.Optional[tp.List[int]], optional): The indices of the inputs data to use. Defaults to None.
+       name (tp.Optional[str], optional): Kernel name. Defaults to "Geometric Kernel".
+
+   .. py:method:: __call__(params, x, y)
+
+      Compute the cross covariance matrix between two matrices of inputs.
+
+      Args:
+          params (tp.Dict): The dictionary of parameters used to compute the covariance matrix.
+          x (Float[Array, "N D"]): An N x D matrix of inputs.
+          y (Float[Array, "M D"]): An M x D matrix of inputs.
+
+      Returns:
+          Float[Array, "N M"]: The N x M covariance matrix.
+
+
+   .. py:method:: _initialise_params(key = None)
+
+      Initialise the parameters of the kernel.
+
+      Args:
+          key (jr.KeyArray, optional): PRNGKey that is passed around during initialisation to initialise any stochastic parameters. Defaults to None.
+
+      Returns:
+          tp.Dict: A dictionary of parameters
+
+
+
+.. py:class:: _GeometricComputation(kernel_fn = None)
+
+   Bases: :py:obj:`gpjax.kernels.AbstractKernelComputation`
+
+   A class for computing the covariance matrix of a geometric kernel.
+
+   Initialise the computation class.
+
+   Args:
+       kernel_fn (tp.Callable, optional): A kernel function that accepts a pair of matrics of lengths N and M, and returns the NxM covariance matrix. Defaults to None.
+
+   .. py:method:: cross_covariance(params, x, y)
+
+      Compute the cross covariance matrix between two matrices of inputs.
+
+      Args:
+          params (tp.Dict): The dictionary of parameters used to compute the covariance matrix.
+          x (Float[Array, "N D"]): An N x D matrix of inputs.
+          y (Float[Array, "M D"]): An M x D matrix of inputs.
+
+      Returns:
+          Float[Array, "N M"]: The N x M covariance matrix.
+
+
+

@@ -1,0 +1,52 @@
+:py:mod:`geometric_kernels.kernels.product`
+===========================================
+
+.. py:module:: geometric_kernels.kernels.product
+
+.. autoapi-nested-parse::
+
+   Product of kernels
+
+
+
+Module Contents
+---------------
+
+.. py:class:: ProductGeometricKernel(*kernels, dimension_indices = None)
+
+   Bases: :py:obj:`geometric_kernels.kernels.BaseGeometricKernel`
+
+   Abstract base class for Geometric kernels.
+
+   Basic implementation of product kernels.
+   TODO: Support combined RFF/KL expansion methods
+
+   :param kernels: kernels to compute the product for
+   :param dimension_indices: List of indices the correspond to the indices of the input that should be fed to each kernel.
+       If None, assume the each kernel takes kernel.space.dimension inputs, and that the input will
+       be a stack of this size, by default None
+
+   .. py:property:: space
+      :type: List[geometric_kernels.spaces.Space]
+
+      Returns space on which the kernel is defined.
+
+
+   .. py:method:: K(params, state, X, X2=None, **kwargs)
+
+      Returns pairwise covariance between `X` and `X2`.
+
+
+   .. py:method:: K_diag(params, state, X)
+
+      Returns covariance between elements in `X`.
+
+
+   .. py:method:: init_params_and_state()
+
+      Returns initial parameters and state of the kernels.
+      params is a dict of trainable parameters of the kernel, such as lengthscale.
+      state is a dict non-trainable parameters of the kernel.
+
+
+

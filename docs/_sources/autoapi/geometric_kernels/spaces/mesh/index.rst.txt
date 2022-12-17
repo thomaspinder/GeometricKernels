@@ -1,0 +1,110 @@
+:py:mod:`geometric_kernels.spaces.mesh`
+=======================================
+
+.. py:module:: geometric_kernels.spaces.mesh
+
+.. autoapi-nested-parse::
+
+   Mesh object
+
+
+
+Module Contents
+---------------
+
+.. py:class:: Mesh(vertices, faces)
+
+   Bases: :py:obj:`geometric_kernels.spaces.base.DiscreteSpectrumSpace`
+
+   A representation of a surface mesh. Mimics `PyMesh` interface. Uses
+   `potpourri3d` to read mesh files.
+
+   :param vertices: A [Nv, D] array of vertex coordinates, where Nv is the number of vertices,
+       D is the dimention of the embedding space (D must be either 2 or 3).
+   :param faces: A [Nf, 3] array of vertex indices that represents a
+       generalized array of faces, where Nf is the number of faces.
+
+       .. Note:
+           Only 3 vertex indices per face are supported
+
+   .. py:property:: dimension
+      :type: int
+
+      Dimension, D
+
+
+   .. py:property:: faces
+      :type: numpy.ndarray
+
+      A [Nf, 3] array of vertex indices that represents a generalized array of
+      faces, where Nf is the number of faces.
+
+
+   .. py:property:: num_faces
+      :type: int
+
+      Number of faces, Nf
+
+
+   .. py:property:: num_vertices
+      :type: int
+
+      Number of vertices, Nv
+
+
+   .. py:property:: vertices
+      :type: numpy.ndarray
+
+      A [Nv, D] array of vertex coordinates, where Nv is the number of vertices,
+      D is the dimention of the embedding space (D must be either 2 or 3).
+
+
+   .. py:method:: get_eigenfunctions(num)
+
+      First `num` eigenfunctions of the Laplace-Beltrami operator on the Mesh.
+
+      :param num: number of eigenfunctions returned
+      :return: eigenfu [Nv, num]
+
+
+   .. py:method:: get_eigensystem(num)
+
+      Returns the first `num` eigenvalues and eigenfunctions of the Laplace-Beltrami
+      operator on the space. Makes use of Nick Sharp's robust laplacian package
+      and Scipy's sparse linear algebra.
+
+      Caches the solution to prevent re-computing the same values.
+
+      TODO(VD): Make sure this is the optimal way to compute this!
+
+      :param num: number of eigenvalues and functions to return.
+      :return: A Tuple of eigenvectors [Nv, num], eigenvalues [num, 1]
+
+
+   .. py:method:: get_eigenvalues(num)
+
+      :param num: number of eigenvalues returned
+      :return: eigenvalues [num, 1]
+
+
+   .. py:method:: get_eigenvectors(num)
+
+      :param num: number of eigenvectors returned
+      :return: eigenvectors [Nv, num]
+
+
+   .. py:method:: get_repeated_eigenvalues(num)
+
+      :param num: number of eigenvalues returned
+      :return: eigenvalues [num, 1]
+
+
+   .. py:method:: load_mesh(filename)
+      :classmethod:
+
+      :param filename: path to read the file from. Supported formats: `obj`,
+          `ply`, `off`, and `stl`. Format inferred automatically from the path
+          extension.
+
+
+

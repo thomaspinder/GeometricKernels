@@ -1,0 +1,11 @@
+:py:mod:`geometric_kernels._logging`
+====================================
+
+.. py:module:: geometric_kernels._logging
+
+.. autoapi-nested-parse::
+
+   Setup logging 
+
+
+

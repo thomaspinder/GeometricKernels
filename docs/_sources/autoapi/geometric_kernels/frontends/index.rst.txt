@@ -1,0 +1,27 @@
+:py:mod:`geometric_kernels.frontends`
+=====================================
+
+.. py:module:: geometric_kernels.frontends
+
+.. autoapi-nested-parse::
+
+   Specific code for GP packages:
+
+   * `GPflow (TensorFlow) <https://github.com/GPflow/GPflow>`_
+   * `GPyTorch (PyTorch) <https://gpytorch.ai/>`_
+   * `SparseGPax (Jax) <https://github.com/aterenin/SparseGPAX>`_
+   * `GPJax (Jax) <https://github.com/JaxGaussianProcesses/GPJax>`_
+
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   jax/index.rst
+   pytorch/index.rst
+   tensorflow/index.rst
+
+

@@ -1,0 +1,504 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+        <title>geometric_kernels.spaces.hypersphere - GeometricKernels documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap_namespaced.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">GeometricKernels  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  
+  <span class="sidebar-brand-text">GeometricKernels  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Geometric Kernels</a></li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/jax/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.jax</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/jax/sparsegpax/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.jax.sparsegpax</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/pytorch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.pytorch</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/pytorch/gpytorch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.pytorch.gpytorch</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/tensorflow/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.tensorflow</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/tensorflow/gpflow/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.tensorflow.gpflow</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/kernels/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.kernels</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/kernels/base/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.kernels.base</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/kernels/geometric_kernels/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.kernels.geometric_kernels</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/kernels/product/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.kernels.product</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/lab_extras/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.lab_extras</span></code></a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/base/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.base</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/circle/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.circle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.eigenfunctions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/graph/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.graph</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/hyperbolic/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.hyperbolic</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.hypersphere</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/mesh/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.mesh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/product/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.product</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/utils/manifold_utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.utils.manifold_utils</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/utils/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.utils.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/_logging/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels._logging</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/jax/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.jax</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/tensorflow/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.tensorflow</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/torch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.torch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/types/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.types</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/GPflow/GeometricKernels">GitHub</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for geometric_kernels.spaces.hypersphere</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Spaces for which there exist analytical expressions for the manifold</span>
+<span class="sd">and the eigenvalues and functions. Examples include the `Circle` and the `Hypersphere`.</span>
+<span class="sd">The Geomstats package is used for most of the geometric calculations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">geomstats</span> <span class="k">as</span> <span class="nn">gs</span>
+<span class="kn">import</span> <span class="nn">lab</span> <span class="k">as</span> <span class="nn">B</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">spherical_harmonics</span> <span class="kn">import</span> <span class="n">SphericalHarmonics</span> <span class="k">as</span> <span class="n">_SphericalHarmonics</span>
+<span class="kn">from</span> <span class="nn">spherical_harmonics.fundamental_set</span> <span class="kn">import</span> <span class="n">num_harmonics</span>
+
+<span class="kn">from</span> <span class="nn">geometric_kernels.spaces</span> <span class="kn">import</span> <span class="n">DiscreteSpectrumSpace</span>
+<span class="kn">from</span> <span class="nn">geometric_kernels.spaces.eigenfunctions</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Eigenfunctions</span><span class="p">,</span>
+    <span class="n">EigenfunctionWithAdditionTheorem</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">geometric_kernels.utils.utils</span> <span class="kn">import</span> <span class="n">chain</span>
+
+
+<div class="viewcode-block" id="SphericalHarmonics"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.SphericalHarmonics">[docs]</a><span class="k">class</span> <span class="nc">SphericalHarmonics</span><span class="p">(</span><span class="n">EigenfunctionWithAdditionTheorem</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eigenfunctions Laplace-Beltrami operator on the sphere correspond to the</span>
+<span class="sd">    spherical harmonics.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_levels</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param dim:</span>
+<span class="sd">            S^{dim}. Example: dim = 2 is the sphere in R^3. Follows geomstats convention.</span>
+
+<span class="sd">        :param num_levels:</span>
+<span class="sd">            Specifies the number of levels (degrees) of the spherical harmonics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_levels</span> <span class="o">=</span> <span class="n">num_levels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_eigenfunctions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">degree_to_num_eigenfunctions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_levels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_spherical_harmonics</span> <span class="o">=</span> <span class="n">_SphericalHarmonics</span><span class="p">(</span>
+            <span class="n">dimension</span><span class="o">=</span><span class="n">dim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_levels</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="SphericalHarmonics.degree_to_num_eigenfunctions"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.SphericalHarmonics.degree_to_num_eigenfunctions">[docs]</a>    <span class="k">def</span> <span class="nf">degree_to_num_eigenfunctions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the number of eigenfunctions that span the first `degree` degrees.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">degree</span><span class="p">):</span>
+            <span class="n">n</span> <span class="o">+=</span> <span class="n">num_harmonics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">n</span></div>
+
+<div class="viewcode-block" id="SphericalHarmonics.num_eigenfunctions_to_degree"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.SphericalHarmonics.num_eigenfunctions_to_degree">[docs]</a>    <span class="k">def</span> <span class="nf">num_eigenfunctions_to_degree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_eigenfunctions</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the minimum degree for which there are at least</span>
+<span class="sd">        `num_eigenfunctions` in the collection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>  <span class="c1"># n: number of harmonics, d: degree (or level)</span>
+        <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">num_eigenfunctions</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">+=</span> <span class="n">num_harmonics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">num_eigenfunctions</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;The number of eigenfunctions requested does not lead to complete &quot;</span>
+                <span class="s2">&quot;levels of spherical harmonics. We have thus increased the number to &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">, which includes all spherical harmonics up to degree </span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2"> (excl.)&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span></div>
+
+<div class="viewcode-block" id="SphericalHarmonics.__call__"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.SphericalHarmonics.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluates the spherical harmonics at `X`, which are Euclidian coordinates.</span>
+<span class="sd">        In other words, the points are parameterized by their extrinsic</span>
+<span class="sd">        (self.dim+1)-coordinates.</span>
+
+<span class="sd">        :param X: TensorType, [N, self.dim+1]</span>
+<span class="sd">            N points with unit norm in Euclidian coordinate system (extrinsic).</span>
+
+<span class="sd">        :return: [N, M], where M = self.num_eigenfunctions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spherical_harmonics</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SphericalHarmonics._addition_theorem"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.SphericalHarmonics._addition_theorem">[docs]</a>    <span class="k">def</span> <span class="nf">_addition_theorem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="n">X2</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the result of applying the additional theorem when</span>
+<span class="sd">        summing over all the eigenfunctions within a level, for each level</span>
+
+<span class="sd">        Concretely, in the case for inputs on the hypersphere, summing over all the</span>
+<span class="sd">        spherical harmonics within a level is equal to evaluating the Gegenbauer polynomial.</span>
+
+<span class="sd">        :param X: [N, dim+1]</span>
+<span class="sd">        :param X2: [N2, dim+1]</span>
+<span class="sd">        :param parameters: unused.</span>
+<span class="sd">        :return: Evaluate the sum of eigenfunctions on each level. Returns</span>
+<span class="sd">            a value for each level [N, N2, L]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">level</span><span class="o">.</span><span class="n">addition</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X2</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>  <span class="c1"># [N1, N2, 1]</span>
+            <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spherical_harmonics</span><span class="o">.</span><span class="n">harmonic_levels</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">B</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># [N, N2, L]</span></div>
+
+<div class="viewcode-block" id="SphericalHarmonics._addition_theorem_diag"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.SphericalHarmonics._addition_theorem_diag">[docs]</a>    <span class="k">def</span> <span class="nf">_addition_theorem_diag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the sum of eigenfunctions on a level for which we have a simplified expression</span>
+
+<span class="sd">        :param X: [N, 1]</span>
+<span class="sd">        :param parameters: unused.</span>
+<span class="sd">        :return: Evaluate the sum of eigenfunctions on each level. Returns</span>
+<span class="sd">            a value for each level [N, L]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">level</span><span class="o">.</span><span class="n">addition_at_1</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># [N, 1]</span>
+            <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spherical_harmonics</span><span class="o">.</span><span class="n">harmonic_levels</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">B</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># [N, L]</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SphericalHarmonics.num_eigenfunctions"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.SphericalHarmonics.num_eigenfunctions">[docs]</a>    <span class="k">def</span> <span class="nf">num_eigenfunctions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Number of eigenfunctions, M&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_eigenfunctions</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SphericalHarmonics.num_levels"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.SphericalHarmonics.num_levels">[docs]</a>    <span class="k">def</span> <span class="nf">num_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Number of levels, L</span>
+
+<span class="sd">        For each level except the first where there is just one, there are two</span>
+<span class="sd">        eigenfunctions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_levels</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SphericalHarmonics.num_eigenfunctions_per_level"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.SphericalHarmonics.num_eigenfunctions_per_level">[docs]</a>    <span class="k">def</span> <span class="nf">num_eigenfunctions_per_level</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Number of eigenfunctions per level, [N_l]_{l=0}^{L-1}&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">num_harmonics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span> <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_levels</span><span class="p">)]</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_levels</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dimension</span><span class="p">,</span> <span class="n">num_levels</span><span class="p">):</span>
+        <span class="n">num_eigenfunctions</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_levels</span><span class="p">):</span>
+            <span class="n">num_eigenfunctions</span> <span class="o">+=</span> <span class="n">num_harmonics</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">num_eigenfunctions</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Hypersphere"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.Hypersphere">[docs]</a><span class="k">class</span> <span class="nc">Hypersphere</span><span class="p">(</span><span class="n">DiscreteSpectrumSpace</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">hypersphere</span><span class="o">.</span><span class="n">Hypersphere</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The d-dimensional hypersphere embedded in the (d+1)-dimensional Euclidean space.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param dim: Dimension of the hypersphere :math:`S^d`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Hypersphere.dimension"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.Hypersphere.dimension">[docs]</a>    <span class="k">def</span> <span class="nf">dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span></div>
+
+<div class="viewcode-block" id="Hypersphere.get_eigenfunctions"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.Hypersphere.get_eigenfunctions">[docs]</a>    <span class="k">def</span> <span class="nf">get_eigenfunctions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Eigenfunctions</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param num: number of eigenfunctions returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">SphericalHarmonics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Hypersphere.get_eigenvalues"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.Hypersphere.get_eigenvalues">[docs]</a>    <span class="k">def</span> <span class="nf">get_eigenvalues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        First `num` eigenvalues of the Laplace-Beltrami operator</span>
+
+<span class="sd">        :return: [num, 1] array containing the eigenvalues</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">eigenfunctions</span> <span class="o">=</span> <span class="n">SphericalHarmonics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+        <span class="n">eigenvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">level</span><span class="o">.</span><span class="n">eigenvalue</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">eigenfunctions</span><span class="o">.</span><span class="n">_spherical_harmonics</span><span class="o">.</span><span class="n">harmonic_levels</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">B</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># [num, 1]</span></div>
+
+<div class="viewcode-block" id="Hypersphere.get_repeated_eigenvalues"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.Hypersphere.get_repeated_eigenvalues">[docs]</a>    <span class="k">def</span> <span class="nf">get_repeated_eigenvalues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;First `num` eigenvalues of the Laplace-Beltrami operator,</span>
+<span class="sd">        repeated according to their multiplicity.</span>
+
+<span class="sd">        :return: [M, 1] array containing the eigenvalues</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">eigenfunctions</span> <span class="o">=</span> <span class="n">SphericalHarmonics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+        <span class="n">eigenvalues_per_level</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">level</span><span class="o">.</span><span class="n">eigenvalue</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">eigenfunctions</span><span class="o">.</span><span class="n">_spherical_harmonics</span><span class="o">.</span><span class="n">harmonic_levels</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">eigenvalues</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span>
+            <span class="n">eigenvalues_per_level</span><span class="p">,</span>
+            <span class="n">eigenfunctions</span><span class="o">.</span><span class="n">num_eigenfunctions_per_level</span><span class="p">,</span>
+        <span class="p">)</span>  <span class="c1"># [M,]</span>
+        <span class="k">return</span> <span class="n">B</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># [M, 1]</span></div>
+
+<div class="viewcode-block" id="Hypersphere.ehess2rhess"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html#geometric_kernels.spaces.hypersphere.Hypersphere.ehess2rhess">[docs]</a>    <span class="k">def</span> <span class="nf">ehess2rhess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">egrad</span><span class="p">,</span> <span class="n">ehess</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Riemannian Hessian along a given direction computed from the Euclidean Hessian</span>
+
+<span class="sd">        :return: [dim] array containing Hess_f(x)[direction]</span>
+
+<span class="sd">        References:</span>
+
+<span class="sd">        [1] P.-A. Absil, R. Mahony, R. Sepulchre.</span>
+<span class="sd">            Optimization algorithms on matrix manifolds. Princeton University Press 2007.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">normal_gradient</span> <span class="o">=</span> <span class="n">egrad</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_tangent</span><span class="p">(</span><span class="n">egrad</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">to_tangent</span><span class="p">(</span><span class="n">ehess</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="o">.</span><span class="n">inner_product</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">normal_gradient</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">direction</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, the GeometricKernels contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/scripts/furo.js"></script>
+    <script src="../../../_static/js/bootstrap.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+:py:mod:`geometric_kernels.frontends.jax.sparsegpax`
+====================================================
+
+.. py:module:: geometric_kernels.frontends.jax.sparsegpax
+
+.. autoapi-nested-parse::
+
+   SparseGPax kernel wrapper
+
+
+
+Module Contents
+---------------
+
+.. py:class:: GeometricKernelParameters
+
+   Bases: :py:obj:`NamedTuple`
+
+   Kernel hyperparameters
+
+   .. py:attribute:: log_lengthscale
+      :annotation: :jax.numpy.ndarray
+
+      log of the lengthscales
+
+
+   .. py:attribute:: log_nu
+      :annotation: :jax.numpy.ndarray
+
+      Matérn differentiability (typically 1/2, 3/2 or 5/2)
+
+
+
+.. py:class:: SparseGPaxGeometricKernel(kernel)
+
+   Bases: :py:obj:`sparsegpax.kernel.AbstractKernel`
+
+   SparseGPax wrapper for `BaseGeometricKernel`
+
+

@@ -1,0 +1,528 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+        <title>geometric_kernels.spaces.eigenfunctions - GeometricKernels documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap_namespaced.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">GeometricKernels  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  
+  <span class="sidebar-brand-text">GeometricKernels  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Geometric Kernels</a></li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/jax/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.jax</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/jax/sparsegpax/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.jax.sparsegpax</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/pytorch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.pytorch</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/pytorch/gpytorch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.pytorch.gpytorch</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/tensorflow/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.tensorflow</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/geometric_kernels/frontends/tensorflow/gpflow/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.frontends.tensorflow.gpflow</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/kernels/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.kernels</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/kernels/base/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.kernels.base</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/kernels/geometric_kernels/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.kernels.geometric_kernels</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/kernels/product/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.kernels.product</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/lab_extras/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.lab_extras</span></code></a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/base/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.base</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/circle/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.circle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.eigenfunctions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/graph/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.graph</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/hyperbolic/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.hyperbolic</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/hypersphere/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.hypersphere</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/mesh/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.mesh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/spaces/product/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.spaces.product</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/geometric_kernels/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/utils/manifold_utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.utils.manifold_utils</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/geometric_kernels/utils/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.utils.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/_logging/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels._logging</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/jax/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.jax</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/tensorflow/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.tensorflow</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/torch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.torch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/types/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.types</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/geometric_kernels/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geometric_kernels.version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/GPflow/GeometricKernels">GitHub</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for geometric_kernels.spaces.eigenfunctions</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Eigenfunctions are callable objects which evaluate the eigenfunctions</span>
+<span class="sd">of the Laplace-Beltrami operator on a manifold.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+
+<span class="kn">import</span> <span class="nn">lab</span> <span class="k">as</span> <span class="nn">B</span>
+<span class="kn">from</span> <span class="nn">opt_einsum</span> <span class="kn">import</span> <span class="n">contract</span> <span class="k">as</span> <span class="n">einsum</span>
+
+<span class="kn">from</span> <span class="nn">geometric_kernels.utils.utils</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+
+<div class="viewcode-block" id="Eigenfunctions"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.Eigenfunctions">[docs]</a><span class="k">class</span> <span class="nc">Eigenfunctions</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a set of eigenfunctions of an operator. Referred to as</span>
+<span class="sd">    :math:`\Phi = [\phi_i]_{i=0}^{M-1}`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Eigenfunctions.weighted_outerproduct"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.Eigenfunctions.weighted_outerproduct">[docs]</a>    <span class="k">def</span> <span class="nf">weighted_outerproduct</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">weights</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span>
+        <span class="n">X2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+        <span class="o">**</span><span class="n">parameters</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes :math:`\sum_{i=0}^{M-1} w_i \phi_i(x1) \phi_i(x2)`.</span>
+
+<span class="sd">        :param weights: [M, 1]</span>
+<span class="sd">        :param X: Inputs where to evaluate the eigenfunctions, shape = [N, D]</span>
+<span class="sd">            where `N` is the number of inputs and `D` the dimension.</span>
+<span class="sd">        :param X2: Inputs where to evaluate the eigenfunctions, shape = [N2, D],</span>
+<span class="sd">            where `N` is the number of inputs and `D` the dimension.</span>
+<span class="sd">            Default to None, in which X is used for X2.</span>
+<span class="sd">        :param parameters: any additional parameters</span>
+<span class="sd">        :return: shape [N, N2]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Phi_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span>  <span class="c1"># [N, L]</span>
+        <span class="k">if</span> <span class="n">X2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Phi_X2</span> <span class="o">=</span> <span class="n">Phi_X</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Phi_X2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span>  <span class="c1"># [N2, L]</span>
+
+        <span class="n">Phi_X</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">weights</span><span class="p">),</span> <span class="n">Phi_X</span><span class="p">)</span>
+        <span class="n">Phi_X2</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">weights</span><span class="p">),</span> <span class="n">Phi_X2</span><span class="p">)</span>
+
+        <span class="n">Kxx</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">*</span> <span class="n">Phi_X</span><span class="p">,</span> <span class="n">Phi_X2</span><span class="p">,</span> <span class="n">tr_b</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># [N, N2]</span>
+        <span class="k">return</span> <span class="n">Kxx</span></div>
+
+<div class="viewcode-block" id="Eigenfunctions.weighted_outerproduct_diag"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.Eigenfunctions.weighted_outerproduct_diag">[docs]</a>    <span class="k">def</span> <span class="nf">weighted_outerproduct_diag</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes :math:`\sum_{i=0}^{M-1} w_i \phi_i(x) \phi_i(x)`. Corresponds to the</span>
+<span class="sd">        diagonal elements of `weighted_outproduct` but they can be calculated more</span>
+<span class="sd">        efficiently.</span>
+
+<span class="sd">        :param weights: [M, 1]</span>
+<span class="sd">        :param X: Inputs where to evaluate the eigenfunctions, shape = [N, D].</span>
+<span class="sd">        :param parameters: any additional parameters</span>
+<span class="sd">        :return: shape [N,]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Phi_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span>  <span class="c1"># [N, M]</span>
+        <span class="n">Kx</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">*</span> <span class="n">Phi_X</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># [N,]</span>
+        <span class="k">return</span> <span class="n">Kx</span></div>
+
+<div class="viewcode-block" id="Eigenfunctions.phi_product"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.Eigenfunctions.phi_product">[docs]</a>    <span class="k">def</span> <span class="nf">phi_product</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="n">X2</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes :math:`\{\phi_i(x_1) \phi_i(x_2)\}_{i=0}^{L}` where `L` is the number of eigenfuctions.</span>
+
+<span class="sd">        :param X1: Inputs where to evaluate the eigenfunctions, shape = [N, D]</span>
+<span class="sd">        :param X2: Inputs where to evaluate the eigenfunctions, shape = [M, D]</span>
+<span class="sd">        :param parameters: any additional parameters</span>
+<span class="sd">        :return: shape [N, M, L].</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Phi_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span>  <span class="c1"># [N, L]</span>
+        <span class="n">Phi_X2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span>  <span class="c1"># [M, L]</span>
+        <span class="k">return</span> <span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;nl,ml-&gt;nml&quot;</span><span class="p">,</span> <span class="n">Phi_X</span><span class="p">,</span> <span class="n">Phi_X2</span><span class="p">)</span>  <span class="c1"># [N, M, L]</span></div>
+
+    <span class="k">def</span> <span class="nf">phi_product_diag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">):</span>
+        <span class="n">Phi_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span>  <span class="c1"># [N, L]</span>
+        <span class="k">return</span> <span class="n">Phi_X</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<div class="viewcode-block" id="Eigenfunctions.__call__"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.Eigenfunctions.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate the individual eigenfunctions.</span>
+
+<span class="sd">        :param X: points to evaluate the eigenfunctions in local coordinates, [N, D].</span>
+<span class="sd">            `N` is the number of points and `D` should match the dimension of the space</span>
+<span class="sd">            on which the eigenfunctions are defined.</span>
+<span class="sd">        :param parameters: any additional parameters</span>
+
+<span class="sd">        :return: [N, M] where `M` is the number of eigenfunctions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractproperty</span>
+<div class="viewcode-block" id="Eigenfunctions.num_eigenfunctions"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.Eigenfunctions.num_eigenfunctions">[docs]</a>    <span class="k">def</span> <span class="nf">num_eigenfunctions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Number of eigenfunctions, M&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Eigenfunctions.dim_of_eigenspaces"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.Eigenfunctions.dim_of_eigenspaces">[docs]</a>    <span class="k">def</span> <span class="nf">dim_of_eigenspaces</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Dimension of eigenspaces. For generic Eigenfunctions, it is an array of ones. For Eigenfunctions with addition theorem, it is the number of eigenfunctions in each level.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">B</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_eigenfunctions</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="EigenfunctionWithAdditionTheorem"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem">[docs]</a><span class="k">class</span> <span class="nc">EigenfunctionWithAdditionTheorem</span><span class="p">(</span><span class="n">Eigenfunctions</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eigenfunctions for which the sum over a level has a simpler expression.</span>
+
+<span class="sd">    Example 1:</span>
+<span class="sd">    On the circle S^1 the eigenfunctions are given by :math:`{\sin(\ell \theta), \cos(\ell \theta)}`,</span>
+<span class="sd">    where we refer to :math:`\ell` as the level. Summing over the eigenfunctions of a level</span>
+<span class="sd">    as follows :math:`\cos(\ell x) \cos(\ell x&#39;) + \sin(\ell x) \sin(\ell x)` can be simplified to</span>
+<span class="sd">    :math:`cos(\ell (x-x&#39;))` thanks to some trigonometric identity.</span>
+
+<span class="sd">    Example 2:</span>
+<span class="sd">    The sphere manifold S^d eigenfunctions, known as the spherical harmonics, also adhere</span>
+<span class="sd">    to this property. It is known as the addition theorem.  See, for example, Theorem 4.11 (p.60</span>
+<span class="sd">    Frye and Efthimiou (2012).</span>
+
+<span class="sd">    In the case the weights over a level in the `weighted_outproduct` are identical</span>
+<span class="sd">    we can make use of this expression to simplify computations.</span>
+
+<span class="sd">    We assume there are `L` levels. The sum of the number of eigenfunctions per level should be</span>
+<span class="sd">    equal the total amount of eigenfunctions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="EigenfunctionWithAdditionTheorem.weighted_outerproduct"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem.weighted_outerproduct">[docs]</a>    <span class="k">def</span> <span class="nf">weighted_outerproduct</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">weights</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span>
+        <span class="n">X2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+        <span class="o">**</span><span class="n">parameters</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes :math:`\sum w_i \phi_i(x_1) \phi_i(x_2)`.</span>
+
+<span class="sd">        :param weights: [L, 1]</span>
+
+<span class="sd">            .. note:</span>
+<span class="sd">               The length of `weights` is equal to the number of levels.</span>
+<span class="sd">               This is **not** the same as the number of eigenfunctions.</span>
+
+<span class="sd">        :param X: Inputs where to evaluate the eigenfunctions, shape = [N, D].</span>
+<span class="sd">        :param X2: Inputs where to evaluate the eigenfunctions, shape = [N2, D].</span>
+<span class="sd">            Default to None, in which X is used for X2.</span>
+<span class="sd">        :param parameters: any additional parameters</span>
+<span class="sd">        :return: shape [N, N2]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">X2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">X2</span> <span class="o">=</span> <span class="n">X</span>
+
+        <span class="n">sum_phi_phi_for_level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_addition_theorem</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span>  <span class="c1"># [N, N, L]</span>
+        <span class="n">sum_phi_phi_for_level</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">weights</span><span class="p">),</span> <span class="n">sum_phi_phi_for_level</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;id,...nki-&gt;...nk&quot;</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">sum_phi_phi_for_level</span><span class="p">)</span>  <span class="c1"># [N, N2]</span></div>
+
+<div class="viewcode-block" id="EigenfunctionWithAdditionTheorem.weighted_outerproduct_diag"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem.weighted_outerproduct_diag">[docs]</a>    <span class="k">def</span> <span class="nf">weighted_outerproduct_diag</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes :math:`\sum_{i=0}^{M-1} w_i \phi_i(x) \phi_i(x)`. Corresponds to the</span>
+<span class="sd">        diagonal elements of `weighted_outproduct` but they can be calculated more</span>
+<span class="sd">        efficiently.</span>
+
+<span class="sd">        Makes use of the fact that eigenfunctions within a level can be summed</span>
+<span class="sd">        in a computationally more efficient matter.</span>
+
+<span class="sd">        .. note:</span>
+<span class="sd">            Only works if the weights within a level are equal.</span>
+
+<span class="sd">        :param weights: [M, 1]</span>
+<span class="sd">        :param X: Inputs where to evaluate the eigenfunctions, shape = [N, D].</span>
+<span class="sd">        :param parameters: any additional parameters</span>
+<span class="sd">        :return: shape [N,]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">addition_theorem_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_addition_theorem_diag</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span>  <span class="c1"># [N, L]</span>
+        <span class="k">return</span> <span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;id,ni-&gt;n&quot;</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">addition_theorem_X</span><span class="p">)</span>  <span class="c1"># [N,]</span></div>
+
+<div class="viewcode-block" id="EigenfunctionWithAdditionTheorem.phi_product"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem.phi_product">[docs]</a>    <span class="k">def</span> <span class="nf">phi_product</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_addition_theorem</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">phi_product_diag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_addition_theorem_diag</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span>
+
+<div class="viewcode-block" id="EigenfunctionWithAdditionTheorem._filter_weights"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem._filter_weights">[docs]</a>    <span class="k">def</span> <span class="nf">_filter_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Selects the weight for each level.</span>
+<span class="sd">        Assumes the weights in `weights` within a level are the same.</span>
+
+<span class="sd">        :param weights: [M,]</span>
+<span class="sd">        :return: [L,]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">weights_per_level</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># assumes the weights in `weights` within a level are the same</span>
+        <span class="c1"># TODO(VD) write check for this.</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_eigenfunctions_per_level</span><span class="p">:</span>
+            <span class="n">weights_per_level</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">weights</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="n">num</span>
+        <span class="k">return</span> <span class="n">B</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="o">*</span><span class="n">weights_per_level</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># [L,]</span></div>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<div class="viewcode-block" id="EigenfunctionWithAdditionTheorem._addition_theorem"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem._addition_theorem">[docs]</a>    <span class="k">def</span> <span class="nf">_addition_theorem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="n">X2</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the sum of eigenfunctions on a level for which we have a simplified expression</span>
+
+<span class="sd">        :param X: [N, D]</span>
+<span class="sd">        :param X2: [N2, D]</span>
+<span class="sd">        :param parameters: any additional parameters</span>
+<span class="sd">        :return: Evaluate the sum of eigenfunctions on each level. Returns</span>
+<span class="sd">            a value for each level [N, N2, L]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<div class="viewcode-block" id="EigenfunctionWithAdditionTheorem._addition_theorem_diag"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem._addition_theorem_diag">[docs]</a>    <span class="k">def</span> <span class="nf">_addition_theorem_diag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the sum of eigenfunctions on a level for which we have a simplified expression</span>
+
+<span class="sd">        :param X: [N, D]</span>
+<span class="sd">        :param parameters: any additional parameters</span>
+<span class="sd">        :return: Evaluate the sum of eigenfunctions on each level. Returns</span>
+<span class="sd">            a value for each level [N, L]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractproperty</span>
+<div class="viewcode-block" id="EigenfunctionWithAdditionTheorem.num_levels"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem.num_levels">[docs]</a>    <span class="k">def</span> <span class="nf">num_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Number of levels, L&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractproperty</span>
+<div class="viewcode-block" id="EigenfunctionWithAdditionTheorem.num_eigenfunctions_per_level"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem.num_eigenfunctions_per_level">[docs]</a>    <span class="k">def</span> <span class="nf">num_eigenfunctions_per_level</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Number of eigenfunctions per level&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EigenfunctionWithAdditionTheorem.dim_of_eigenspaces"><a class="viewcode-back" href="../../../autoapi/geometric_kernels/spaces/eigenfunctions/index.html#geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem.dim_of_eigenspaces">[docs]</a>    <span class="k">def</span> <span class="nf">dim_of_eigenspaces</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">Numeric</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_eigenfunctions_per_level</span></div></div>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, the GeometricKernels contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/scripts/furo.js"></script>
+    <script src="../../../_static/js/bootstrap.min.js"></script>
+    </body>
+</html>

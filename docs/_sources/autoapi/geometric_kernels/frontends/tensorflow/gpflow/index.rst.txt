@@ -1,0 +1,40 @@
+:py:mod:`geometric_kernels.frontends.tensorflow.gpflow`
+=======================================================
+
+.. py:module:: geometric_kernels.frontends.tensorflow.gpflow
+
+.. autoapi-nested-parse::
+
+   GPflow kernel wrapper
+
+
+
+Module Contents
+---------------
+
+.. py:class:: DefaultFloatZeroMeanFunction(output_dim=1)
+
+   Bases: :py:obj:`gpflow.mean_functions.Constant`
+
+   Zero mean function. The default GPflow `ZeroMeanFunction`
+   uses the input's dtype as output type, this minor adaptation
+   uses GPflow's `default_float` instead.
+
+
+.. py:class:: GPflowGeometricKernel(kernel, active_dims = None, name = None)
+
+   Bases: :py:obj:`gpflow.kernels.Kernel`
+
+   GPflow wrapper for `BaseGeometricKernel`.
+
+   :param active_dims: active dimensions, either a slice or list of
+       indices into the columns of X.
+   :param name: optional kernel name.
+
+   .. py:property:: space
+      :type: geometric_kernels.spaces.base.Space
+
+      Alias to kernel Space
+
+
+

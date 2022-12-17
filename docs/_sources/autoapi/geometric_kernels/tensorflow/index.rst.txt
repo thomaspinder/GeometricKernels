@@ -1,0 +1,15 @@
+:py:mod:`geometric_kernels.tensorflow`
+======================================
+
+.. py:module:: geometric_kernels.tensorflow
+
+.. autoapi-nested-parse::
+
+   Load TensorFlow backend in lab, spherical_harmonics and geometric_kernels using
+
+   .. code-block::
+
+       import geometric_kernels.tensorflow
+
+
+

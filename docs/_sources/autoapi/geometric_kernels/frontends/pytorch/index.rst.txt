@@ -1,0 +1,20 @@
+:py:mod:`geometric_kernels.frontends.pytorch`
+=============================================
+
+.. py:module:: geometric_kernels.frontends.pytorch
+
+.. autoapi-nested-parse::
+
+   A place for pytorch based GP packages.
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   gpytorch/index.rst
+
+

@@ -1,0 +1,27 @@
+:py:mod:`geometric_kernels.utils.utils`
+=======================================
+
+.. py:module:: geometric_kernels.utils.utils
+
+.. autoapi-nested-parse::
+
+   Convenience utilities.
+
+
+
+Module Contents
+---------------
+
+.. py:function:: chain(elements, repetitions)
+
+   Repeats each element in `elements` by a certain number of repetitions as
+   specified in `repetitions`.  The length of `elements` and `repetitions`
+   should match.
+
+   .. code:
+       elements = ['a', 'b', 'c']
+       repetitions = [2, 1, 3]
+       out = chain(elements, repetitions)
+       print(out)  # ['a', 'a', 'b', 'c', 'c', 'c']
+
+

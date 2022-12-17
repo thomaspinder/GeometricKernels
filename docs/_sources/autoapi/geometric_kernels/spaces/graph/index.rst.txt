@@ -1,0 +1,75 @@
+:py:mod:`geometric_kernels.spaces.graph`
+========================================
+
+.. py:module:: geometric_kernels.spaces.graph
+
+.. autoapi-nested-parse::
+
+   Graph object
+
+
+
+Module Contents
+---------------
+
+.. py:class:: Graph(adjacency_matrix)
+
+   Bases: :py:obj:`geometric_kernels.spaces.base.DiscreteSpectrumSpace`
+
+   Represents an arbitrary undirected graph.
+
+   :param adjacency_matrix: An n-dimensional square, symmetric matrix,
+       where adjacency_matrix[i, j] is non-zero if there is an edge
+       between nodes i and j. Scipy's sparse matrices are supported.
+
+   .. py:property:: dimension
+      :type: int
+
+      Dimension of the manifold
+
+      Examples:
+
+      * circle: 1 dimensional
+      * sphere: 2 dimensional
+      * torus: 2 dimensional
+
+
+   .. py:method:: get_eigenfunctions(num)
+
+      First `num` eigenfunctions of the Laplace-Beltrami operator on the Graph.
+
+      :param num: number of eigenfunctions returned
+      :return: eigenfu [n, num]
+
+
+   .. py:method:: get_eigensystem(num)
+
+      Returns the first `num` eigenvalues and eigenvectors of the graph Laplacian.
+      Caches the solution to prevent re-computing the same values. Note that, if a
+      sparse scipy matrix is input, requesting all n eigenpairs will lead to a
+      conversion of the sparse matrix to a dense one due to scipy.sparse.linalg.eigsh
+      limitations.
+
+      :param num: number of eigenvalues and functions to return.
+      :return: A Tuple of eigenvectors [n, num], eigenvalues [num, 1]
+
+
+   .. py:method:: get_eigenvalues(num)
+
+      :param num: number of eigenvalues returned
+      :return: eigenvalues [num, 1]
+
+
+   .. py:method:: get_eigenvectors(num)
+
+      :param num: number of eigenvectors returned
+      :return: eigenvectors [n, num]
+
+
+   .. py:method:: get_repeated_eigenvalues(num)
+
+      :param num: number of eigenvalues
+      :return: eigenvalues [num, 1]
+
+
+

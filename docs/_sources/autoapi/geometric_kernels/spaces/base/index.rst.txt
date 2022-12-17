@@ -1,0 +1,92 @@
+:py:mod:`geometric_kernels.spaces.base`
+=======================================
+
+.. py:module:: geometric_kernels.spaces.base
+
+.. autoapi-nested-parse::
+
+   Abstract base interface for spaces.
+
+
+
+Module Contents
+---------------
+
+.. py:class:: ConvertEigenvectorsToEigenfunctions(eigenvectors)
+
+   Bases: :py:obj:`geometric_kernels.spaces.eigenfunctions.Eigenfunctions`
+
+   Converts the array of eigenvectors to callable objects,
+   where inputs are given by the indices. Based on
+   from geometric_kernels.spaces.mesh import ConvertEigenvectorsToEigenfunctions.
+
+   :param eigenvectors: [Nv, M]
+
+   .. py:property:: num_eigenfunctions
+      :type: int
+
+      Number of eigenvectors, M
+
+
+   .. py:method:: __call__(X, **parameters)
+
+      Selects `N` locations from the `M` eigenvectors.
+
+      :param X: indices [N, 1]
+      :param parameters: unused
+      :return: [N, M]
+
+
+
+.. py:class:: DiscreteSpectrumSpace
+
+   Bases: :py:obj:`Space`
+
+   A Space for which we can obtain the eigenvalues and eigenfunctions of
+   the Laplace-Beltrami operator.
+
+   Examples includes `Graph`\s, `Manifold`\s and `Mesh`\es.
+
+   .. py:method:: get_eigenfunctions(num)
+      :abstractmethod:
+
+      First `num` eigenfunctions of the Laplace-Beltrami operator
+
+
+   .. py:method:: get_eigenvalues(num)
+      :abstractmethod:
+
+      First `num` eigenvalues of the Laplace-Beltrami operator
+
+      :return: [num, 1] array containing the eigenvalues
+
+
+   .. py:method:: get_repeated_eigenvalues(num)
+      :abstractmethod:
+
+      First `num` eigenvalues of the Laplace-Beltrami operator,
+      repeated according to their multiplicity.
+
+      :return: [M, 1] array containing the eigenvalues
+
+
+
+.. py:class:: Space
+
+   Bases: :py:obj:`abc.ABC`
+
+   Object representing a space on which a kernel can be defined.
+
+   .. py:method:: dimension()
+      :abstractmethod:
+
+      Dimension of the manifold
+
+      Examples:
+
+      * circle: 1 dimensional
+      * sphere: 2 dimensional
+      * torus: 2 dimensional
+
+
+

@@ -1,0 +1,180 @@
+:py:mod:`geometric_kernels.spaces.product`
+==========================================
+
+.. py:module:: geometric_kernels.spaces.product
+
+.. autoapi-nested-parse::
+
+   Implement product spaces
+
+
+
+Module Contents
+---------------
+
+.. py:class:: ProductDiscreteSpectrumSpace(*spaces, num_eigen = 100)
+
+   Bases: :py:obj:`geometric_kernels.spaces.base.DiscreteSpectrumSpace`
+
+   A Space for which we can obtain the eigenvalues and eigenfunctions of
+   the Laplace-Beltrami operator.
+
+   Examples includes `Graph`\s, `Manifold`\s and `Mesh`\es.
+
+   Implementation of products of discrete spectrum spaces.
+   Assumes the spaces are compact manifolds and that the eigenfunctions are the
+   eigenfunctions of the Laplace-Beltrami operator. On such a space the eigen(values/functions)
+   on the product space associated with the multiindex :math:`\alpha` are given by
+
+   .. math::
+       \lambda_{\alpha} = \sum_i \lambda_{i, \alpha_i}
+
+       \phi_{\alpha} = \prod_i \phi_{i, \alpha_i}
+
+   where :math:`\lambda_{i, j}` is the j'th eigenvalue on the i'th manifold in the product
+   and :math:`\phi_{i, j}` is the j'th eigenfunction on the i'th manifold in the product.
+
+   The eigenfunctions of such manifolds can't in genreal be analytically ordered, and
+   so they must be precomputed.
+
+   :param spaces: The spaces to product together
+   :param num_eigen: (optional)
+       number of eigenvalues to use for this product space, by default 100
+
+   .. py:property:: dimension
+      :type: int
+
+      Dimension of the manifold
+
+      Examples:
+
+      * circle: 1 dimensional
+      * sphere: 2 dimensional
+      * torus: 2 dimensional
+
+
+   .. py:method:: get_eigenfunctions(num)
+
+      First `num` eigenfunctions of the Laplace-Beltrami operator
+
+
+   .. py:method:: get_eigenvalues(num)
+
+      First `num` eigenvalues of the Laplace-Beltrami operator
+
+      :return: [num, 1] array containing the eigenvalues
+
+
+   .. py:method:: get_repeated_eigenvalues(num)
+
+      First `num` eigenvalues of the Laplace-Beltrami operator,
+      repeated according to their multiplicity.
+
+      :return: [M, 1] array containing the eigenvalues
+
+
+
+.. py:class:: ProductEigenfunctions(dimensions, eigenindicies, *eigenfunctions, dimension_indices = None)
+
+   Bases: :py:obj:`geometric_kernels.spaces.eigenfunctions.Eigenfunctions`
+
+   Represents a set of eigenfunctions of an operator. Referred to as
+   :math:`\Phi = [\phi_i]_{i=0}^{M-1}`.
+
+   Wrapper class for handling eigenfunctions on product spaces
+
+   Parameters
+   ----------
+   dimensions : List[int]
+       The dimensions of the spaces being producted together
+   eigenindicies : B.Numeric
+       An array mapping i'th eigenfunction of the product space to
+       the index of the eigenlevels of the subspaces
+   eigenfunctions : Eigenfunctions
+
+
+   .. py:property:: dim_of_eigenspaces
+
+      Dimension of eigenspaces. For generic Eigenfunctions, it is an array of ones. For Eigenfunctions with addition theorem, it is the number of eigenfunctions in each level.
+
+
+   .. py:property:: num_eigenfunctions
+      :type: int
+
+      Return the total number of eigenfunctions.
+
+
+   .. py:property:: num_levels
+      :type: int
+
+      Return number of "levels".
+
+
+   .. py:method:: __call__(X, **parameters)
+
+      Evaluate the individual eigenfunctions.
+
+      :param X: points to evaluate the eigenfunctions in local coordinates, [N, D].
+          `N` is the number of points and `D` should match the dimension of the space
+          on which the eigenfunctions are defined.
+      :param parameters: any additional parameters
+
+      :return: [N, M] where `M` is the number of eigenfunctions.
+
+
+   .. py:method:: weighted_outerproduct(weights, X, X2=None, **parameters)
+
+      Computes :math:`\sum_{i=0}^{M-1} w_i \phi_i(x1) \phi_i(x2)`.
+
+      :param weights: [M, 1]
+      :param X: Inputs where to evaluate the eigenfunctions, shape = [N, D]
+          where `N` is the number of inputs and `D` the dimension.
+      :param X2: Inputs where to evaluate the eigenfunctions, shape = [N2, D],
+          where `N` is the number of inputs and `D` the dimension.
+          Default to None, in which X is used for X2.
+      :param parameters: any additional parameters
+      :return: shape [N, N2]
+
+
+   .. py:method:: weighted_outerproduct_diag(weights, X, **parameters)
+
+      Computes :math:`\sum_{i=0}^{M-1} w_i \phi_i(x) \phi_i(x)`. Corresponds to the
+      diagonal elements of `weighted_outproduct` but they can be calculated more
+      efficiently.
+
+      :param weights: [M, 1]
+      :param X: Inputs where to evaluate the eigenfunctions, shape = [N, D].
+      :param parameters: any additional parameters
+      :return: shape [N,]
+
+
+
+.. py:function:: find_lowest_sum_combinations(array, k)
+
+   for an [N, D] array, assumed to be sorted within columns, find k smallest sums of
+   one element from each row, and return the index array corresponding to this. Will
+   possibly cause problems if k<D (but unlikely).
+
+
+.. py:function:: per_level_to_separate(eigenindices, nums_per_level)
+
+   Given `eigenindices` which map product space's eigenfunction index to
+   the indices of subspaces' eigenlevels,
+   convert them to a mapping of product space's eigenfunction index to
+   the indices of subspaces' individual eigenfunctions via
+   `nums_per_level`, which gives number of eigenfunctions per level for each subspace.
+
+   :return: [M, S]
+       `M` is the total number of eigenfunctions, `S` is the number of subspaces.
+
+
+.. py:function:: total_multiplicities(eigenindices, nums_per_level)
+
+   Given a collection of eigenindices [M, S],
+   compute the total multiplicities of
+   the corresponding eigenvalues.
+
+   eigidx: [M, S]
+   nums_per_level [S, L]
+
+

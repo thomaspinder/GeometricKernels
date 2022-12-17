@@ -1,0 +1,53 @@
+:py:mod:`geometric_kernels.kernels.base`
+========================================
+
+.. py:module:: geometric_kernels.kernels.base
+
+.. autoapi-nested-parse::
+
+   Base class for geometric kernels
+
+
+
+Module Contents
+---------------
+
+.. py:class:: BaseGeometricKernel(space)
+
+   Bases: :py:obj:`abc.ABC`, :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
+
+   Abstract base class for Geometric kernels.
+
+   .. py:property:: space
+      :type: T
+
+      Returns space on which the kernel is defined.
+
+
+   .. py:method:: K(params, state, X, X2=None, **kwargs)
+      :abstractmethod:
+
+      Returns pairwise covariance between `X` and `X2`.
+
+
+   .. py:method:: K_diag(params, state, X, **kwargs)
+      :abstractmethod:
+
+      Returns covariance between elements in `X`.
+
+
+   .. py:method:: init_params_and_state()
+      :abstractmethod:
+
+      Returns initial parameters and state of the kernels.
+      params is a dict of trainable parameters of the kernel, such as lengthscale.
+      state is a dict non-trainable parameters of the kernel.
+
+
+
+.. py:data:: T
+   
+
+   Type bounding `Space`, used as Generic type in `BaseGeometricKernel`.
+
+

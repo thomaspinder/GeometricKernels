@@ -1,0 +1,68 @@
+:py:mod:`geometric_kernels.spaces.hyperbolic`
+=============================================
+
+.. py:module:: geometric_kernels.spaces.hyperbolic
+
+.. autoapi-nested-parse::
+
+   Hyperbolic space.
+
+
+
+Module Contents
+---------------
+
+.. py:class:: Hyperbolic(dim=1)
+
+   Bases: :py:obj:`geometric_kernels.spaces.Space`, :py:obj:`geomstats.geometry.hyperboloid.Hyperboloid`
+
+   Hyperbolic manifold.
+
+   The class implements the hyperboloid model of the hyperbolic space :math:`H^n`.
+
+   :math:`H^n = \{ (x_0, \ldots, x_{n}) | x_0^2 - \sum_{i=1}^{n} x_i^2 = 1, x_0 > 0 \}`
+
+   The class inherits the interface of geomstats's `Hyperbolic` with `point_type=extrinsic`.
+
+   .. py:property:: dimension
+      :type: int
+
+      Dimension of the manifold
+
+      Examples:
+
+      * circle: 1 dimensional
+      * sphere: 2 dimensional
+      * torus: 2 dimensional
+
+
+   .. py:method:: distance(x1, x2, diag = False)
+
+      Compute the hyperbolic distance between `x1` and `x2`.
+
+      The code is a reimplementation of `geomstats.geometry.hyperboloid.HyperbolicMetric` for `lab`.
+
+      :param x1: [N, dim+1] array of points in the hyperbolic space
+      :param x2: [M, dim+1] array of points in the hyperbolic space
+      :param diag: if True, compute elementwise distance. Default False.
+      :return: hyperbolic distance.
+
+
+   .. py:method:: heat_kernel(distance, t, num_points = 100)
+
+      Compute the heat kernel associated with the space.
+
+      We use Millson's formula for the heat kernel.
+
+      References:
+          [1] A. Grigoryan and M. Noguchi,
+          The heat kernel on hyperbolic space.
+          Bulletin of the London Mathematical Society, 30(6):643–650, 1998.
+
+      :param distance: precomputed distance between the inputs
+      :param t: heat kernel lengthscale
+      :param num_points: number of points in the integral
+      :return: heat kernel values
+
+
+

@@ -1,0 +1,46 @@
+:py:mod:`geometric_kernels.utils.manifold_utils`
+================================================
+
+.. py:module:: geometric_kernels.utils.manifold_utils
+
+.. autoapi-nested-parse::
+
+   Utilities for dealing with manifolds.  
+
+
+
+Module Contents
+---------------
+
+.. py:function:: manifold_laplacian(x, manifold, egrad, ehess)
+
+   Computes the manifold Laplacian of a given function at a given point x.
+   The manifold Laplacian equals the trace of the manifold Hessian, i.e.,
+   :math:`\Delta_M f(x) = \sum_{i=0}^{D-1} \nabla^2 f(x_i, x_i)`,
+   where :math:`[x_i]_{i=0}^{D-1}` is an orthonormal basis of the tangent
+   space at x.
+
+   :param x: point on the manifold at which to compute the Laplacian
+   :param manifold: manifold space, based on geomstats
+   :param egrad: Euclidean gradient of the function
+   :param ehess: Euclidean Hessian of the function
+
+   :return: manifold Laplacian
+
+   References:
+
+       [1] J. Jost.
+           Riemannian geometry and geometric analysis. Springer, 2017.
+           Chapter 3.1.
+
+
+.. py:function:: tangent_onb(manifold, x)
+
+   Computes an orthonormal basis on the tangent space at x.
+
+   :param manifold: manifold space, based on geomstats
+   :param x: point on the manifold
+
+   :return: [num, num] array containing the orthonormal basis
+
+

@@ -1,0 +1,20 @@
+:py:mod:`geometric_kernels.frontends.jax`
+=========================================
+
+.. py:module:: geometric_kernels.frontends.jax
+
+.. autoapi-nested-parse::
+
+   A place for Jax based GP packages.
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   sparsegpax/index.rst
+
+

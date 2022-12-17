@@ -1,0 +1,20 @@
+:py:mod:`geometric_kernels.frontends.tensorflow`
+================================================
+
+.. py:module:: geometric_kernels.frontends.tensorflow
+
+.. autoapi-nested-parse::
+
+   GPflow and TensorFlow specific code
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   gpflow/index.rst
+
+

@@ -1,0 +1,15 @@
+:py:mod:`geometric_kernels.jax`
+===============================
+
+.. py:module:: geometric_kernels.jax
+
+.. autoapi-nested-parse::
+
+   Load Jax backend in lab, spherical_harmonics and geometric_kernels using:
+
+   .. code-block::
+
+       import geometric_kernels.jax
+
+
+

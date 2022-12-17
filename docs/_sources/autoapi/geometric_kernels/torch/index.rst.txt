@@ -1,0 +1,15 @@
+:py:mod:`geometric_kernels.torch`
+=================================
+
+.. py:module:: geometric_kernels.torch
+
+.. autoapi-nested-parse::
+
+   Load PyTorch backend in lab, spherical_harmonics and geometric_kernels using
+
+   .. code-block::
+
+       import geometric_kernels.torch
+
+
+

@@ -1,0 +1,40 @@
+:py:mod:`geometric_kernels.frontends.pytorch.gpytorch`
+======================================================
+
+.. py:module:: geometric_kernels.frontends.pytorch.gpytorch
+
+.. autoapi-nested-parse::
+
+   Pytorch kernel wrapper
+
+
+
+Module Contents
+---------------
+
+.. py:class:: GPytorchGeometricKernel(kernel, **kwargs)
+
+   Bases: :py:obj:`gpytorch.kernels.Kernel`
+
+   Pytorch wrapper for `BaseGeometricKernel`
+
+   Initializes internal Module state, shared by both nn.Module and ScriptModule.
+
+   .. py:property:: nu
+      :type: torch.Tensor
+
+      A smoothness parameter
+
+
+   .. py:property:: space
+      :type: geometric_kernels.spaces.base.Space
+
+      Alias to kernel Space
+
+
+   .. py:method:: forward(x1, x2, diag=False, last_dim_is_batch=False, **kwargs)
+
+      Eval kernel
+
+
+

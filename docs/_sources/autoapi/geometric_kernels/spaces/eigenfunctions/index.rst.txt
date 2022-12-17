@@ -1,0 +1,203 @@
+:py:mod:`geometric_kernels.spaces.eigenfunctions`
+=================================================
+
+.. py:module:: geometric_kernels.spaces.eigenfunctions
+
+.. autoapi-nested-parse::
+
+   Eigenfunctions are callable objects which evaluate the eigenfunctions
+   of the Laplace-Beltrami operator on a manifold.
+
+
+
+Module Contents
+---------------
+
+.. py:class:: EigenfunctionWithAdditionTheorem
+
+   Bases: :py:obj:`Eigenfunctions`
+
+   Eigenfunctions for which the sum over a level has a simpler expression.
+
+   Example 1:
+   On the circle S^1 the eigenfunctions are given by :math:`{\sin(\ell \theta), \cos(\ell \theta)}`,
+   where we refer to :math:`\ell` as the level. Summing over the eigenfunctions of a level
+   as follows :math:`\cos(\ell x) \cos(\ell x') + \sin(\ell x) \sin(\ell x)` can be simplified to
+   :math:`cos(\ell (x-x'))` thanks to some trigonometric identity.
+
+   Example 2:
+   The sphere manifold S^d eigenfunctions, known as the spherical harmonics, also adhere
+   to this property. It is known as the addition theorem.  See, for example, Theorem 4.11 (p.60
+   Frye and Efthimiou (2012).
+
+   In the case the weights over a level in the `weighted_outproduct` are identical
+   we can make use of this expression to simplify computations.
+
+   We assume there are `L` levels. The sum of the number of eigenfunctions per level should be
+   equal the total amount of eigenfunctions.
+
+   .. py:property:: dim_of_eigenspaces
+      :type: lab.Numeric
+
+      Dimension of eigenspaces. For generic Eigenfunctions, it is an array of ones. For Eigenfunctions with addition theorem, it is the number of eigenfunctions in each level.
+
+
+   .. py:method:: _addition_theorem(X, X2, **parameters)
+      :abstractmethod:
+
+      Returns the sum of eigenfunctions on a level for which we have a simplified expression
+
+      :param X: [N, D]
+      :param X2: [N2, D]
+      :param parameters: any additional parameters
+      :return: Evaluate the sum of eigenfunctions on each level. Returns
+          a value for each level [N, N2, L]
+
+
+   .. py:method:: _addition_theorem_diag(X, **parameters)
+      :abstractmethod:
+
+      Returns the sum of eigenfunctions on a level for which we have a simplified expression
+
+      :param X: [N, D]
+      :param parameters: any additional parameters
+      :return: Evaluate the sum of eigenfunctions on each level. Returns
+          a value for each level [N, L]
+
+
+   .. py:method:: _filter_weights(weights)
+
+      Selects the weight for each level.
+      Assumes the weights in `weights` within a level are the same.
+
+      :param weights: [M,]
+      :return: [L,]
+
+
+   .. py:method:: num_eigenfunctions_per_level()
+      :abstractmethod:
+
+      Number of eigenfunctions per level
+
+
+   .. py:method:: num_levels()
+      :abstractmethod:
+
+      Number of levels, L
+
+
+   .. py:method:: phi_product(X1, X2, **parameters)
+
+      Computes :math:`\{\phi_i(x_1) \phi_i(x_2)\}_{i=0}^{L}` where `L` is the number of eigenfuctions.
+
+      :param X1: Inputs where to evaluate the eigenfunctions, shape = [N, D]
+      :param X2: Inputs where to evaluate the eigenfunctions, shape = [M, D]
+      :param parameters: any additional parameters
+      :return: shape [N, M, L].
+
+
+   .. py:method:: weighted_outerproduct(weights, X, X2 = None, **parameters)
+
+      Computes :math:`\sum w_i \phi_i(x_1) \phi_i(x_2)`.
+
+      :param weights: [L, 1]
+
+          .. note:
+             The length of `weights` is equal to the number of levels.
+             This is **not** the same as the number of eigenfunctions.
+
+      :param X: Inputs where to evaluate the eigenfunctions, shape = [N, D].
+      :param X2: Inputs where to evaluate the eigenfunctions, shape = [N2, D].
+          Default to None, in which X is used for X2.
+      :param parameters: any additional parameters
+      :return: shape [N, N2]
+
+
+   .. py:method:: weighted_outerproduct_diag(weights, X, **parameters)
+
+      Computes :math:`\sum_{i=0}^{M-1} w_i \phi_i(x) \phi_i(x)`. Corresponds to the
+      diagonal elements of `weighted_outproduct` but they can be calculated more
+      efficiently.
+
+      Makes use of the fact that eigenfunctions within a level can be summed
+      in a computationally more efficient matter.
+
+      .. note:
+          Only works if the weights within a level are equal.
+
+      :param weights: [M, 1]
+      :param X: Inputs where to evaluate the eigenfunctions, shape = [N, D].
+      :param parameters: any additional parameters
+      :return: shape [N,]
+
+
+
+.. py:class:: Eigenfunctions
+
+   Bases: :py:obj:`abc.ABC`
+
+   Represents a set of eigenfunctions of an operator. Referred to as
+   :math:`\Phi = [\phi_i]_{i=0}^{M-1}`.
+
+   .. py:property:: dim_of_eigenspaces
+      :type: lab.Numeric
+
+      Dimension of eigenspaces. For generic Eigenfunctions, it is an array of ones. For Eigenfunctions with addition theorem, it is the number of eigenfunctions in each level.
+
+
+   .. py:method:: __call__(X, **parameters)
+      :abstractmethod:
+
+      Evaluate the individual eigenfunctions.
+
+      :param X: points to evaluate the eigenfunctions in local coordinates, [N, D].
+          `N` is the number of points and `D` should match the dimension of the space
+          on which the eigenfunctions are defined.
+      :param parameters: any additional parameters
+
+      :return: [N, M] where `M` is the number of eigenfunctions.
+
+
+   .. py:method:: num_eigenfunctions()
+      :abstractmethod:
+
+      Number of eigenfunctions, M
+
+
+   .. py:method:: phi_product(X1, X2, **parameters)
+
+      Computes :math:`\{\phi_i(x_1) \phi_i(x_2)\}_{i=0}^{L}` where `L` is the number of eigenfuctions.
+
+      :param X1: Inputs where to evaluate the eigenfunctions, shape = [N, D]
+      :param X2: Inputs where to evaluate the eigenfunctions, shape = [M, D]
+      :param parameters: any additional parameters
+      :return: shape [N, M, L].
+
+
+   .. py:method:: weighted_outerproduct(weights, X, X2 = None, **parameters)
+
+      Computes :math:`\sum_{i=0}^{M-1} w_i \phi_i(x1) \phi_i(x2)`.
+
+      :param weights: [M, 1]
+      :param X: Inputs where to evaluate the eigenfunctions, shape = [N, D]
+          where `N` is the number of inputs and `D` the dimension.
+      :param X2: Inputs where to evaluate the eigenfunctions, shape = [N2, D],
+          where `N` is the number of inputs and `D` the dimension.
+          Default to None, in which X is used for X2.
+      :param parameters: any additional parameters
+      :return: shape [N, N2]
+
+
+   .. py:method:: weighted_outerproduct_diag(weights, X, **parameters)
+
+      Computes :math:`\sum_{i=0}^{M-1} w_i \phi_i(x) \phi_i(x)`. Corresponds to the
+      diagonal elements of `weighted_outproduct` but they can be calculated more
+      efficiently.
+
+      :param weights: [M, 1]
+      :param X: Inputs where to evaluate the eigenfunctions, shape = [N, D].
+      :param parameters: any additional parameters
+      :return: shape [N,]
+
+
+

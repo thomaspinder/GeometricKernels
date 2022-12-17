@@ -1,0 +1,134 @@
+:py:mod:`geometric_kernels.spaces.circle`
+=========================================
+
+.. py:module:: geometric_kernels.spaces.circle
+
+.. autoapi-nested-parse::
+
+   Spaces for which there exist analytical expressions for the manifold
+   and the eigenvalues and functions. Examples include the `Circle` and the `Hypersphere`.
+   The Geomstats package is used for most of the geometric calculations.
+
+
+
+Module Contents
+---------------
+
+.. py:class:: Circle
+
+   Bases: :py:obj:`geometric_kernels.spaces.base.DiscreteSpectrumSpace`, :py:obj:`geomstats.geometry.hypersphere.Hypersphere`
+
+   Circle :math:`\mathbb{S}^1` manifold with sinusoids and cosines eigenfunctions.
+
+   .. py:property:: dimension
+      :type: int
+
+      Dimension of the manifold
+
+      Examples:
+
+      * circle: 1 dimensional
+      * sphere: 2 dimensional
+      * torus: 2 dimensional
+
+
+   .. py:method:: get_eigenfunctions(num)
+
+      :param num: number of eigenlevels returned.
+
+
+   .. py:method:: get_eigenvalues(num)
+
+      Eigenvalues of the Laplace-Beltrami operator corresponding to the first `num` levels.
+
+      :return: [M, 1] array containing the eigenvalues
+
+
+   .. py:method:: get_repeated_eigenvalues(num)
+
+      First `num` eigenvalues of the Laplace-Beltrami operator,
+      repeated according to their multiplicity.
+
+      :return: [M, 1] array containing the eigenvalues
+
+
+   .. py:method:: is_tangent(vector, base_point = None, atol = gs.backend.atol)
+      :abstractmethod:
+
+      Check whether the `vector` is tangent at `base_point`.
+
+      :param vector: shape=[..., dim]
+          Vector to evaluate.
+      :param base_point: shape=[..., dim]
+          Point on the manifold. Defaults to `None`.
+      :param atol: float
+          Absolute tolerance.
+          Optional, default: 1e-6.
+      :return: Boolean denoting if vector is a tangent vector at the base point.
+
+
+
+.. py:class:: SinCosEigenfunctions(num_levels)
+
+   Bases: :py:obj:`geometric_kernels.spaces.eigenfunctions.EigenfunctionWithAdditionTheorem`
+
+   Eigenfunctions Laplace-Beltrami operator on the circle correspond
+   to the Fourier basis, i.e. sin and cosines..
+
+   .. py:property:: num_eigenfunctions
+      :type: int
+
+      Number of eigenfunctions, M
+
+
+   .. py:property:: num_eigenfunctions_per_level
+      :type: lab.Numeric
+
+      Number of eigenfunctions per level, [N_l]_{l=0}^{L-1}
+
+
+   .. py:property:: num_levels
+      :type: int
+
+      Number of levels, L
+
+      For each level except the first where there is just one, there are two
+      eigenfunctions.
+
+
+   .. py:method:: __call__(X, **parameters)
+
+      :param X: polar coordinates on the circle, [N, 1].
+      :param parameters: unused.
+
+
+   .. py:method:: _addition_theorem(X, X2, **parameters)
+
+      Returns the result of applying the additional theorem when
+      summing over all the eigenfunctions within a level, for each level
+
+      Concretely in the case for inputs on the sphere S^1:
+
+      .. math:
+          \sin(l \theta_1) \sin(l \theta_2) + \cos(l \theta_1) \cos(l \theta_2)
+              = N_l \cos(l (\theta_1 - \theta_2)),
+          where N_l = 1 for l = 0, else N_l = 2.
+
+      :param X: [N, 1]
+      :param X2: [N2, 1]
+      :param parameters: unused.
+      :return: Evaluate the sum of eigenfunctions on each level. Returns
+          a value for each level [N, N2, L]
+
+
+   .. py:method:: _addition_theorem_diag(X, **parameters)
+
+      Returns the sum of eigenfunctions on a level for which we have a simplified expression
+
+      :param X: [N, 1]
+      :param parameters: unused.
+      :return: Evaluate the sum of eigenfunctions on each level. Returns
+          a value for each level [N, L]
+
+
+
